@@ -98,11 +98,13 @@
 function dispalyGreetings(today){
         hrs = today.getHours();
         name=""
-        if (hrs < 12)
-            greet = 'Доброе утро  '+name;
-        else if (hrs >= 12 && hrs <= 17)
-            greet = 'Добрый день '+name;
-        else if (hrs >= 17 && hrs <= 24)
+        if (hrs >= 00 && hrs < 6)
+            greet = 'Доброй ночи  '+name;
+        else if (hrs >= 6 && hrs < 12)
+            greet = 'Доброе утро '+name;
+        else if (hrs >= 12 && hrs < 18)
+            greet = 'Добрый день  '+name;
+        else
             greet = 'Добрый вечер  '+name;
         document.getElementById('greet').innerHTML = greet;
 
@@ -130,13 +132,13 @@ function dispalyGreetings(today){
         var minutes = padZeros(today.getMinutes());
         var seconds = padZeros(today.getSeconds());
        
-        if(hour >= 00 && hrs < 6){
+        if(hour >= 00 && hour < 6){
             seconds+=" ночи"
         }
-        else if (hour >= 6 && hrs < 12){
+        else if (hour >= 6 && hour < 12){
             seconds+=" утра"
         }
-        else if (hour >= 12 && hrs < 18){
+        else if (hour >= 12 && hour < 18){
             seconds+=" дня"
         }
         else {
