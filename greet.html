@@ -128,11 +128,17 @@ function dispalyGreetings(today){
         var minutes = padZeros(today.getMinutes());
         var seconds = padZeros(today.getSeconds());
        
-        if(today.getHours() >=12){
-            seconds+=" вечера"
+        if(hour >= 00 && hrs <= 6){
+            seconds+=" ночи"
         }
-        else{
+        else if (hour >= 6 && hrs <= 12){
             seconds+=" утра"
+        }
+        else if (hour >= 12 && hrs <= 18){
+            seconds+=" дня"
+        }
+        else {
+            seconds+=" вечера"
         }
        
         document.getElementById('hour').innerHTML = hour;
