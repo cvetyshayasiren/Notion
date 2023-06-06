@@ -129,10 +129,10 @@ function dispalyGreetings(today){
         var seconds = padZeros(today.getSeconds());
        
         if(today.getHours() >=12){
-            seconds+=" pm"
+            seconds+=" вечера"
         }
         else{
-            seconds+=" am"
+            seconds+=" утра"
         }
        
         document.getElementById('hour').innerHTML = hour;
