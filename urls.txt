@@ -1,9 +1,9 @@
-https://cvetyshayasiren.github.io/Notion/calendar.html
+https://cvetyshayasiren.github.io/Notion/widgets/calendar.html
 
-https://cvetyshayasiren.github.io/Notion/greet.html
+https://cvetyshayasiren.github.io/Notion/widgets/greet.html
 
-https://cvetyshayasiren.github.io/Notion/weather.html
+https://cvetyshayasiren.github.io/Notion/widgets/weather.html
 
-https://cvetyshayasiren.github.io/Notion/pomodoro
+https://cvetyshayasiren.github.io/Notion/widgets/pomodoro
 
-https://cvetyshayasiren.github.io/Notion/nav.html
+https://cvetyshayasiren.github.io/Notion/widgets/nav.html
