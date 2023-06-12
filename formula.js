@@ -48,26 +48,29 @@ if(
 )
 
 // Прогресс времени
-format(round(dateBetween(now(), start(prop("Срок")), "minutes") * 100 / dateBetween(end(prop("Срок")), start(prop("Срок")), "minutes"))) + "%" +
 if(
-  round(dateBetween(now(), start(prop("Срок")), "minutes") * 100 / dateBetween(end(prop("Срок")), start(prop("Срок")), "minutes")) < 10, "⬜️", 
+  prop("Текущее"), 
+  format(round(dateBetween(now(), start(prop("Срок")), "minutes") * 100 / dateBetween(end(prop("Срок")), start(prop("Срок")), "minutes"))) + "%" +
   if(
-    round(dateBetween(now(), start(prop("Срок")), "minutes") * 100 / dateBetween(end(prop("Срок")), start(prop("Срок")), "minutes")) < 20, "⬜️⬜️", 
+    round(dateBetween(now(), start(prop("Срок")), "minutes") * 100 / dateBetween(end(prop("Срок")), start(prop("Срок")), "minutes")) < 10, "🟩⬜️⬜️⬜️⬜️⬜️⬜️⬜️⬜️⬜️", 
     if(
-      round(dateBetween(now(), start(prop("Срок")), "minutes") * 100 / dateBetween(end(prop("Срок")), start(prop("Срок")), "minutes")) < 30, "⬜️⬜️🟩", 
+      round(dateBetween(now(), start(prop("Срок")), "minutes") * 100 / dateBetween(end(prop("Срок")), start(prop("Срок")), "minutes")) < 20, "🟩🟩⬜️⬜️⬜️⬜️⬜️⬜️⬜️⬜️", 
       if(
-        round(dateBetween(now(), start(prop("Срок")), "minutes") * 100 / dateBetween(end(prop("Срок")), start(prop("Срок")), "minutes")) < 40, "⬜️⬜️🟩🟩", 
+        round(dateBetween(now(), start(prop("Срок")), "minutes") * 100 / dateBetween(end(prop("Срок")), start(prop("Срок")), "minutes")) < 30, "🟩🟩🟩⬜️⬜️⬜️⬜️⬜️⬜️⬜️", 
         if(
-          round(dateBetween(now(), start(prop("Срок")), "minutes") * 100 / dateBetween(end(prop("Срок")), start(prop("Срок")), "minutes")) < 50, "⬜️⬜️🟩🟩🟩", 
+          round(dateBetween(now(), start(prop("Срок")), "minutes") * 100 / dateBetween(end(prop("Срок")), start(prop("Срок")), "minutes")) < 40, "🟩🟩🟩🟨⬜️⬜️⬜️⬜️⬜️⬜️", 
           if(
-            round(dateBetween(now(), start(prop("Срок")), "minutes") * 100 / dateBetween(end(prop("Срок")), start(prop("Срок")), "minutes")) < 60, "⬜️⬜️🟩🟩🟩🟨", 
+            round(dateBetween(now(), start(prop("Срок")), "minutes") * 100 / dateBetween(end(prop("Срок")), start(prop("Срок")), "minutes")) < 50, "🟩🟩🟩🟨🟨⬜️⬜️⬜️⬜️⬜️", 
             if(
-              round(dateBetween(now(), start(prop("Срок")), "minutes") * 100 / dateBetween(end(prop("Срок")), start(prop("Срок")), "minutes")) < 70, "⬜️⬜️🟩🟩🟩🟨🟨", 
+              round(dateBetween(now(), start(prop("Срок")), "minutes") * 100 / dateBetween(end(prop("Срок")), start(prop("Срок")), "minutes")) < 60, "🟩🟩🟩🟨🟨🟨⬜️⬜️⬜️⬜️", 
               if(
-                round(dateBetween(now(), start(prop("Срок")), "minutes") * 100 / dateBetween(end(prop("Срок")), start(prop("Срок")), "minutes")) < 80, "⬜️⬜️🟩🟩🟩🟨🟨🟨", 
+                round(dateBetween(now(), start(prop("Срок")), "minutes") * 100 / dateBetween(end(prop("Срок")), start(prop("Срок")), "minutes")) < 70, "🟩🟩🟩🟨🟨🟨🟧⬜️⬜️⬜️", 
                 if(
-                  round(dateBetween(now(), start(prop("Срок")), "minutes") * 100 / dateBetween(end(prop("Срок")), start(prop("Срок")), "minutes")) < 90, "⬜️⬜️🟩🟩🟩🟨🟨🟨🟥", 
-                  "⬜️⬜️🟩🟩🟩🟨🟨🟨🟥🟥"
+                  round(dateBetween(now(), start(prop("Срок")), "minutes") * 100 / dateBetween(end(prop("Срок")), start(prop("Срок")), "minutes")) < 80, "🟩🟩🟩🟨🟨🟨🟧🟧⬜️⬜️", 
+                  if(
+                    round(dateBetween(now(), start(prop("Срок")), "minutes") * 100 / dateBetween(end(prop("Срок")), start(prop("Срок")), "minutes")) < 90, "🟩🟩🟩🟨🟨🟨🟧🟧🟥⬜️", 
+                    "🟩🟩🟩🟨🟨🟨🟧🟧🟥🟥"
+                  )
                 )
               )
             )
@@ -75,7 +78,8 @@ if(
         )
       )
     )
-  )
+  ), 
+    ""
 )
 
 // День недели
