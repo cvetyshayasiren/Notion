@@ -9,5 +9,5 @@ https://cvetyshayasiren.github.io/Notion/widgets/pomodoro
 https://cvetyshayasiren.github.io/Notion/widgets/nav.html
 
 Шрифт: tahoma
-Цвет1: fdf5e6 (OldLace)
+Цвет1: #fdf5e6 (OldLace)
 Цвет2: #837b6b
