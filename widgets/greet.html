@@ -129,16 +129,16 @@ function dispalyGreetings(today){
         var seconds = padZeros(today.getSeconds());
        
         if(hour >= 00 && hour < 6){
-            seconds+=" ночи"
+            seconds+=" ночи 🌙"
         }
         else if (hour >= 6 && hour < 12){
-            seconds+=" утра"
+            seconds+=" утра 🌄"
         }
         else if (hour >= 12 && hour < 18){
-            seconds+=" дня"
+            seconds+=" дня 🔆"
         }
         else {
-            seconds+=" вечера"
+            seconds+=" вечера 🌆"
         }
        
         document.getElementById('hour').innerHTML = hour;
