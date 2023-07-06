@@ -49,7 +49,7 @@ if(
 
 // Прогресс времени
 if(
-  prop("Текущее"), 
+  prop("Текущее") and start(prop("Срок")) != end(prop("Срок")),
   format(round(dateBetween(now(), start(prop("Срок")), "minutes") * 100 / dateBetween(end(prop("Срок")), start(prop("Срок")), "minutes"))) + "%" +
   if(
     round(dateBetween(now(), start(prop("Срок")), "minutes") * 100 / dateBetween(end(prop("Срок")), start(prop("Срок")), "minutes")) < 10, "🟩⬜️⬜️⬜️⬜️⬜️⬜️⬜️⬜️⬜️", 
