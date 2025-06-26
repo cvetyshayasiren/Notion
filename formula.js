@@ -85,19 +85,19 @@ if(
 
 // День недели
 if(
-  day(dateStart(prop("срок"))) % 7 == 0, "7 Вс", 
+  day(dateStart(prop("срок"))) % 7 == 0, "воскресенье", 
   if(
-    day(dateStart(prop("срок"))) % 7 == 1, "1 Пн", 
+    day(dateStart(prop("срок"))) % 7 == 1, "понедельник", 
     if(
-      day(dateStart(prop("срок"))) % 7 == 2, "2 Вт", 
+      day(dateStart(prop("срок"))) % 7 == 2, "вторник", 
       if(
-        day(dateStart(prop("срок"))) % 7 == 3, "3 Ср", 
+        day(dateStart(prop("срок"))) % 7 == 3, "среда", 
         if(
-          day(dateStart(prop("срок"))) % 7 == 4, "4 Чт", 
+          day(dateStart(prop("срок"))) % 7 == 4, "четверг", 
           if(
-            day(dateStart(prop("срок"))) % 7 == 5, "5 Пт", 
+            day(dateStart(prop("срок"))) % 7 == 5, "пятница", 
             if(
-              day(dateStart(prop("срок"))) % 7 == 6, "6 Сб", ""
+              day(dateStart(prop("срок"))) % 7 == 6, "суббота", ""
             )
           )
         )
