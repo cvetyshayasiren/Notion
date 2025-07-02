@@ -1,52 +1,36 @@
 // https://www.textfixer.com/tools/remove-line-breaks.php
 
 // Дедлайн
-if(
-  empty(prop("срок")), 
-  "🤷‍♂️ без даты", 
+ifs(
+  prop("статус") == "выполнено", "✔️ выполнено",  
+  empty(prop("срок")), "🤷‍♂️ без даты",
+  floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000) == 0, "❗️ сегодня",
+  floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000) == 1, "⚠️ завтра", 
+  floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000) == -1, "😐 вчера", 
+  floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000) == 2, "💛 послезавтра",
+  floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000) == -2, "☹️ позавчера", 
   if(
-    (floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000)) == 0, 
-    "❗️ сегодня", 
-    if(
-      (floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000)) == 1, 
-      "⚠️ завтра", 
-      if(
-        (floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000)) == -1, 
-        "😐 вчера", 
-        if(
-          (floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000)) == 2, 
-          "💛 послезавтра", 
-          if(
-            (floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000)) == -2, 
-            "☹️ позавчера", 
-            (
-              (
-                if(
-                  (floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000)) > 0, 
-                  "💚 через ", 
-                  "❌ просрочено на "
-                ) + format(abs(floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000)))) + " ") + 
-            if(
-              or(
-                or(
-                  and(
-                    (abs(floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000)) % 10) > 4, 
-                    (abs(floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000)) % 10) < 10
-                  ), 
-                  (abs(floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000)) % 10) == 0), 
-                and(
-                  (abs(floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000)) % 100) > 9, 
-                  (abs(floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000)) % 100) < 20)
-              ), 
-              "дней", 
-              if((abs(floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000)) % 10) == 1, "день", "дня")
-            )
-          )
-        )
+  floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000) > 0, "💚 через ", "❌ просрочено на "
+  ) + format(abs(floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000)) + " ") +
+  if(
+    or(
+      or(
+        and(
+          abs(floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000)) % 10 > 4, 
+          abs(floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000)) % 10 < 10
+        ), 
+        abs(floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000)) % 10 == 0
+      ), 
+      and(
+        abs(floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000)) % 100 > 9, 
+        abs(floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000)) % 100 < 20
       )
-    )
+    ), 
+    "дней", 
+    if(abs(floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000)) % 10 == 1, "день", "дня")
   )
 )
+
 
 // Прогресс времени
 if(
