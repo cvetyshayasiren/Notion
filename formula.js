@@ -57,28 +57,6 @@ ifs(
 
 
 // День недели
-if(
-  day(dateStart(prop("срок"))) % 7 == 0, "7 воскресенье", 
-  if(
-    day(dateStart(prop("срок"))) % 7 == 1, "1 понедельник", 
-    if(
-      day(dateStart(prop("срок"))) % 7 == 2, "2 вторник", 
-      if(
-        day(dateStart(prop("срок"))) % 7 == 3, "3 среда", 
-        if(
-          day(dateStart(prop("срок"))) % 7 == 4, "4 четверг", 
-          if(
-            day(dateStart(prop("срок"))) % 7 == 5, "5 пятница", 
-            if(
-              day(dateStart(prop("срок"))) % 7 == 6, "6 суббота", ""
-            )
-          )
-        )
-      )
-    )
-  )
-)
-
 ifs(
   day(dateStart(prop("срок"))) % 7 == 0, "7 воскресенье",
   day(dateStart(prop("срок"))) % 7 == 1, "1 понедельник",
