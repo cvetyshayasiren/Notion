@@ -79,6 +79,17 @@ if(
   )
 )
 
+ifs(
+  day(dateStart(prop("срок"))) % 7 == 0, "7 воскресенье",
+  day(dateStart(prop("срок"))) % 7 == 1, "1 понедельник",
+  day(dateStart(prop("срок"))) % 7 == 2, "2 вторник",
+  day(dateStart(prop("срок"))) % 7 == 3, "3 среда",
+  day(dateStart(prop("срок"))) % 7 == 4, "4 четверг",
+  day(dateStart(prop("срок"))) % 7 == 5, "5 пятница",
+  day(dateStart(prop("срок"))) % 7 == 6, "6 суббота",
+  ""
+)
+
 // Текущее
 or(
   formatDate(now(), "YYYY-MM-DD HH:mm") == formatDate(prop("срок"), "YYYY-MM-DD HH:mm"), 
