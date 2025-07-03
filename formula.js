@@ -2,8 +2,10 @@
 
 // Дедлайн
 ifs(
-  prop("статус") == "выполнено", "✔️ выполнено",  
-  empty(prop("срок")), "🤷‍♂️ без даты",
+  prop("статус") == "выполнено", "✅",  
+  prop("статус") == "архив", "🗄",
+  prop("статус") == "отменено", "✖️",
+  empty(prop("срок")), "✖️🗓",
   floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000) == 0, "❗️ сегодня",
   floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000) == 1, "⚠️ завтра", 
   floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000) == -1, "😐 вчера", 
@@ -33,39 +35,26 @@ ifs(
 
 
 // Прогресс времени
-if(
+ifs(
+  empty(prop("срок")), "✖️🗓",
   prop("текущее") and (dateStart(prop("срок")) != dateEnd(prop("срок"))), 
   (format(round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes"))) + "%") + 
-  if(
-  round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes")) < 10, "🟩⬜️⬜️⬜️⬜️⬜️⬜️⬜️⬜️⬜️", 
-  if(
-    round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes")) < 20, "🟩🟩⬜️⬜️⬜️⬜️⬜️⬜️⬜️⬜️", 
-    if(
-      round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes")) < 30, "🟩🟩🟩⬜️⬜️⬜️⬜️⬜️⬜️⬜️", 
-      if(
-        round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes")) < 40, "🟩🟩🟩🟨⬜️⬜️⬜️⬜️⬜️⬜️", 
-        if(
-          round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes")) < 50, "🟩🟩🟩🟨🟨⬜️⬜️⬜️⬜️⬜️", 
-          if(
-            round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes")) < 60, "🟩🟩🟩🟨🟨🟨⬜️⬜️⬜️⬜️", 
-            if(
-              round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes")) < 70, "🟩🟩🟩🟨🟨🟨🟧⬜️⬜️⬜️", 
-              if(
-                round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes")) < 80, "🟩🟩🟩🟨🟨🟨🟧🟧⬜️⬜️", 
-                if(
-                  round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes")) < 90, "🟩🟩🟩🟨🟨🟨🟧🟧🟥⬜️", 
-                  "🟩🟩🟩🟨🟨🟨🟧🟧🟥🟥"
-                )
-              )
-            )
-          )
-        )
-      )
-    )
-  )
-), 
-  ""
-    )
+  ifs(
+    round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes")) < 10, "🟩🔲🔲🔲🔲🔲🔲🔲🔲🔲",
+    round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes")) < 20, "🟩🟩🔲🔲🔲🔲🔲🔲🔲🔲",
+    round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes")) < 30, "🟩🟩🟩🔲🔲🔲🔲🔲🔲🔲",
+    round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes")) < 40, "🟩🟩🟩🟨🔲🔲🔲🔲🔲🔲",
+    round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes")) < 50, "🟩🟩🟩🟨🟨🔲🔲🔲🔲🔲",
+    round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes")) < 60, "🟩🟩🟩🟨🟨🟨🔲🔲🔲🔲",
+    round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes")) < 70, "🟩🟩🟩🟨🟨🟨🟧🔲🔲🔲",
+    round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes")) < 80, "🟩🟩🟩🟨🟨🟨🟧🟧🔲🔲",
+    round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes")) < 90, "🟩🟩🟩🟨🟨🟨🟧🟧🟥🔲",
+    "🟩🟩🟩🟨🟨🟨🟧🟧🟥🟥"
+  ),
+  "🗓✖️🗓"
+)
+
+
 
 // День недели
 if(
