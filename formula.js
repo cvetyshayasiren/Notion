@@ -2,10 +2,10 @@
 
 // Дедлайн
 ifs(
-  prop("статус") == "выполнено", "✅",  
-  prop("статус") == "архив", "🗄",
-  prop("статус") == "отменено", "✖️",
-  empty(prop("срок")), "✖️🗓",
+  prop("статус") == "выполнено", "",  
+  prop("статус") == "архив", "",
+  prop("статус") == "отменено", "",
+  empty(prop("срок")), "",
   floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000) == 0, "❗️ сегодня",
   floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000) == 1, "⚠️ завтра", 
   floor((timestamp(dateEnd(prop("срок"))) + 10800000) / 86400000) - floor((timestamp(now()) + 10800000) / 86400000) == -1, "😐 вчера", 
@@ -33,13 +33,11 @@ ifs(
   )
 )
 
-
 // Прогресс времени
 ifs(
-  empty(prop("срок")), "✖️🗓",
+  empty(prop("срок")), "",
   prop("текущее") and (dateStart(prop("срок")) != dateEnd(prop("срок"))), 
-  (format(round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes"))) + "%") + 
-  ifs(
+    ifs(
     round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes")) < 10, "🟩🔲🔲🔲🔲🔲🔲🔲🔲🔲",
     round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes")) < 20, "🟩🟩🔲🔲🔲🔲🔲🔲🔲🔲",
     round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes")) < 30, "🟩🟩🟩🔲🔲🔲🔲🔲🔲🔲",
@@ -50,11 +48,9 @@ ifs(
     round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes")) < 80, "🟩🟩🟩🟨🟨🟨🟧🟧🔲🔲",
     round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes")) < 90, "🟩🟩🟩🟨🟨🟨🟧🟧🟥🔲",
     "🟩🟩🟩🟨🟨🟨🟧🟧🟥🟥"
-  ),
-  "🗓✖️🗓"
+  ) + " " + 
+  padStart(format(round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes"))), 2, "0") + "%", ""
 )
-
-
 
 // День недели
 ifs(
