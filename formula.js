@@ -2,7 +2,7 @@
 
 // Дедлайн
 ifs(
-  prop("статус") == "выполнено", "",  
+  prop("статус") == "выполнено", "",
   prop("статус") == "архив", "",
   prop("статус") == "отменено", "",
   empty(prop("срок")), "",
@@ -34,9 +34,8 @@ ifs(
 )
 
 // Прогресс времени
-ifs(
-  empty(prop("срок")), "",
-  prop("текущее") and (dateStart(prop("срок")) != dateEnd(prop("срок"))), 
+if(
+  and(dateStart(prop("срок")) < now(), dateEnd(prop("срок")) > now()), 
     ifs(
     round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes")) < 10, "🟩🔲🔲🔲🔲🔲🔲🔲🔲🔲",
     round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes")) < 20, "🟩🟩🔲🔲🔲🔲🔲🔲🔲🔲",
@@ -48,8 +47,8 @@ ifs(
     round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes")) < 80, "🟩🟩🟩🟨🟨🟨🟧🟧🔲🔲",
     round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes")) < 90, "🟩🟩🟩🟨🟨🟨🟧🟧🟥🔲",
     "🟩🟩🟩🟨🟨🟨🟧🟧🟥🟥"
-  ) + " " + 
-  padStart(format(round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes"))), 2, "0") + "%", ""
+  ) + " " + padStart(format(round((dateBetween(now(), dateStart(prop("срок")), "minutes") * 100) / dateBetween(dateEnd(prop("срок")), dateStart(prop("срок")), "minutes"))), 2, "0") + "%", 
+  ""
 )
 
 // День недели
@@ -62,12 +61,6 @@ ifs(
   day(dateStart(prop("срок"))) % 7 == 5, "5 пятница",
   day(dateStart(prop("срок"))) % 7 == 6, "6 суббота",
   ""
-)
-
-// Текущее
-or(
-  formatDate(now(), "YYYY-MM-DD HH:mm") == formatDate(prop("срок"), "YYYY-MM-DD HH:mm"), 
-  and(dateStart(prop("срок")) < now(), dateEnd(prop("срок")) > now())
 )
 
 // Просрочено
